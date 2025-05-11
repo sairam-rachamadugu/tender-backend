@@ -85,6 +85,7 @@ def scrape_and_save():
             tender = {
                 #"department": cols[0].text.strip(),
                 "tender_id": cols[1].text.strip(),
+                "tender_dep": cols[2].text.strip(),
                 "title": cols[4].text.strip(),
                 "estimated_value": cols[5].text.strip(),
                 "published_date": cols[6].text.strip(),
