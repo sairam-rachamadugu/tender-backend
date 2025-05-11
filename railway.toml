@@ -1,0 +1,5 @@
+[scripts]
+daily_scrape = "python scraper.py"
+
+[schedules.daily_scrape]
+schedule = "@daily"
