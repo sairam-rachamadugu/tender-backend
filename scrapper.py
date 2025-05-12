@@ -8,6 +8,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 import time
 import json
+import os
 def is_int(s):
     #print(s)
     try:
@@ -108,7 +109,8 @@ def scrape_and_save():
     #print(len(tenders))
     # Step 5: Close the browser session
     driver.quit()
-    with  open("data.json","w") as f:
+    os.makedirs('docs', exist_ok=True)
+    with  open("docs/data.json","w") as f:
         json.dump(tenders,f)
 
 scrape_and_save()
