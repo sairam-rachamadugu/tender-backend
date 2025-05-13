@@ -10,6 +10,7 @@ def get_tenders():
     return jsonify(data)
 @app.route("/")
 def hello():
+    print("[INFO] home route")
     return "Flask API is running!"
 
 if __name__ == "__main__":

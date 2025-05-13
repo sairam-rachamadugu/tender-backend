@@ -19,6 +19,7 @@ def is_int(s):
         return False
 
 def scrape_and_save():
+    print("[INFO] Starting scrape...")
     options = Options()
     options.add_argument("--headless") 
     options.add_argument("--disable-gpu")
