@@ -22,6 +22,8 @@ def scrape_and_save():
     print("[INFO] Starting scrape...")
     options = Options()
     options.add_argument("--headless") 
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     options.add_argument("--disable-gpu")
     
     # Set up WebDriver with auto ChromeDriver management
