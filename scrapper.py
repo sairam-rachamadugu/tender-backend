@@ -27,7 +27,12 @@ def scrape_and_save():
     options.add_argument("--disable-gpu")
     
     # Set up WebDriver with auto ChromeDriver management
-    service = Service(ChromeDriverManager().install())
+    #service = Service(ChromeDriverManager().install())
+    # Must match your Dockerfile Chrome binary
+    options.binary_location = '/usr/bin/chromium'
+
+    # Must match Dockerfile chromedriver install path
+    service = Service('/usr/lib/chromium/chromedriver')    
     driver = webdriver.Chrome(service=service, options=options)
     
     # Step 1: Go to the login page

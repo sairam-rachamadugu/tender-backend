@@ -25,6 +25,10 @@ RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROMEDRIVER_PATH=/usr/lib/chromium/chromedriver
+ENV DISPLAY=:99
+
 # Add your app
 COPY . /app
 WORKDIR /app
