@@ -1,39 +1,26 @@
-FROM python:3.11-slim
+FROM python:3.12-slim
 
-# Install system dependencies for Chrome
+# Install dependencies
 RUN apt-get update && apt-get install -y \
+    curl unzip gnupg ca-certificates fonts-liberation libnss3 libxss1 libasound2 libatk-bridge2.0-0 libgtk-3-0 libx11-xcb1 \
     chromium chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
-# # Install Chrome
-# RUN curl -sSL https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb \
-#     && apt install -y ./chrome.deb || true \
-#     && rm chrome.deb
+# Set environment variables
+ENV CHROME_BIN=/usr/bin/chromium \
+    CHROMEDRIVER_BIN=/usr/bin/chromedriver
 
-# # Install ChromeDriver
-# RUN CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+') && \
-#     CHROMEDRIVER_VERSION=$(curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION) && \
-#     curl -sS -o /tmp/chromedriver.zip https://chromedriver.storage.googleapis.com/$CHROMEDRIVER_VERSION/chromedriver_linux64.zip && \
-#     unzip /tmp/chromedriver.zip -d /usr/local/bin && \
-#     rm /tmp/chromedriver.zip
-
-RUN which chromium && chromium --version \
-    && which chromedriver && chromedriver --version
-   
-# Install Python packages
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-ENV CHROME_BIN=/usr/bin/chromium
-ENV CHROMEDRIVER_PATH=/usr/lib/chromium/chromedriver
+# Set display port for Selenium
 ENV DISPLAY=:99
 
-# Add your app
-COPY . /app
+# Set working directory
 WORKDIR /app
 
-# Expose port
-EXPOSE 8080
+# Copy your code
+COPY . .
 
-# Start the app with Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "main:app"]
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Start the app (replace main.py if different)
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "main:app"]
