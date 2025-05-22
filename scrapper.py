@@ -116,5 +116,4 @@ def scrape_and_save():
     with  open("docs/data.json","w") as f:
         json.dump(tenders,f)
 
-scrape_and_save()
     
