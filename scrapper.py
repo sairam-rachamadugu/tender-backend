@@ -29,11 +29,12 @@ def scrape_and_save():
     # Set up WebDriver with auto ChromeDriver management
     #service = Service(ChromeDriverManager().install())
     # Must match your Dockerfile Chrome binary
-    options.binary_location = '/usr/bin/chromium'
+    options.binary_location = "/usr/bin/chromium"
 
-    # Must match Dockerfile chromedriver install path
-    service = Service('/usr/lib/chromium/chromedriver')    
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(
+        service=Service("/usr/bin/chromedriver"),
+        options=options
+    )    
     
     # Step 1: Go to the login page
     driver.get("https://tender.telangana.gov.in/login.html")
