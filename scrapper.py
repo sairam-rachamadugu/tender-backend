@@ -21,11 +21,11 @@ def is_int(s):
 def scrape_and_save():
     print("[INFO] Starting scrape...")
     options = Options()
-    options.add_argument("--headless") 
+    options.add_argument("--headless=new") 
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument("--disable-gpu")
-    
+    options.add_argument("--disable-software-rasterizer")
     # Set up WebDriver with auto ChromeDriver management
     #service = Service(ChromeDriverManager().install())
     # Must match your Dockerfile Chrome binary
