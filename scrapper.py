@@ -26,6 +26,7 @@ def scrape_and_save():
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-software-rasterizer")
+    options.add_argument("--remote-debugging-port=9222")
     # Set up WebDriver with auto ChromeDriver management
     #service = Service(ChromeDriverManager().install())
     # Must match your Dockerfile Chrome binary
@@ -37,7 +38,13 @@ def scrape_and_save():
     )    
     
     # Step 1: Go to the login page
-    driver.get("https://tender.telangana.gov.in/login.html")
+    try:
+        driver.get("https://tender.telangana.gov.in/login.html")
+    except Exception as e:
+        print(f"Failed to load page: {e}")
+        return {"status": "error", "message": str(e)}, 500
+
+    
     
     # If login is required, fill in login details (adjust if needed)
     # Example: Enter username and password and submit
